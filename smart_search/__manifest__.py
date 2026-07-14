@@ -1,6 +1,6 @@
 {
     "name": "Smart Search",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "summary": "Fetch product details from EZ-base using EAN",
     "category": "Inventory",
     "author": "Custom",
