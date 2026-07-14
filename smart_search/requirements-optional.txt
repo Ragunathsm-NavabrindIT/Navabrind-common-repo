@@ -1,0 +1,5 @@
+# Optional Dependencies for Smart Search
+
+# Required for JavaScript-based search (Selenium)
+# Install with: pip install -r requirements-optional.txt
+selenium>=4.0.0
