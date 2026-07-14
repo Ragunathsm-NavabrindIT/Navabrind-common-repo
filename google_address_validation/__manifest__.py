@@ -1,6 +1,6 @@
 {
     "name": "Google Address Validation",
-    "version": "17.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Tools",
     "summary": "Validate address using Google Address Validation API",
     "description": "Automatically validates and corrects partner addresses using Google Address Validation API.",
