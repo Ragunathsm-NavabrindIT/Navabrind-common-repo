@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_res_partner_form_google_validation" model="ir.ui.view">
+        <field name="name">res.partner.form.google.validation</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Smart Button -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="action_validate_address" type="object" icon="fa-map-marker">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Google Address Validate</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
