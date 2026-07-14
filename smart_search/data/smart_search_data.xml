@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="smart_search_service"
+            model="smart.search.service">
+
+        <field name="name">
+            EZ-base
+        </field>
+
+        <field name="base_url">
+            https://ez-catalog.nl
+        </field>
+
+        <field name="active">
+            True
+        </field>
+
+    </record>
+
+</odoo>
