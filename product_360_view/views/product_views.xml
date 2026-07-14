@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- 1. Custom Action -->
+    <record id="action_product_360_app" model="ir.actions.act_window">
+        <field name="name">360 Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a 360 View
+            </p>
+        </field>
+    </record>
+
+    <!-- 2. Clean Form View (No Prices/Details) -->
+    <record id="view_product_360_form_standalone" model="ir.ui.view">
+        <field name="name">product.360.form.standalone</field>
+        <field name="model">product.template</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <form string="360 Product">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Product Name"/>
+                        <h1><field name="name" placeholder="e.g. Rotating Chair"/></h1>
+                    </div>
+
+                    <!-- BIG PREVIEW SECTION -->
+                    <separator string="360 Visualization"/>
+                    
+                    <div class="o_360_hero_section" style="margin-bottom: 30px;">
+                        <!-- This field will now take full width -->
+                        <field name="product_360_ids_json" widget="product_360_viewer_widget" />
+                        
+                        <div class="text-center text-muted mt-2">
+                            <small><i class="fa fa-info-circle"/> Save record to update preview. Drag to rotate.</small>
+                        </div>
+                    </div>
+
+                    <!-- UPLOAD SECTION (Below the preview) -->
+                    <separator string="Manage Images (Drag rows to reorder)"/>
+                    <div class="alert alert-info">
+                        <strong>Tip:</strong> Ensure you set the <strong>Sequence</strong> (1, 2, 3...) so the rotation is smooth.
+                    </div>
+
+                    <field name="product_360_image_ids" mode="kanban">
+                        <kanban>
+                            <field name="id"/>
+                            <field name="image"/>
+                            <field name="sequence"/>
+                            <templates>
+                                <t t-name="card">
+                                    <div class="d-flex align-items-center p-2">
+                                        <field name="image" widget="image" options="{'size': [64, 64]}"/>
+                                        <div class="ms-3">
+                                            <strong>Seq: <field name="sequence"/></strong>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                        <form>
+                            <group>
+                                <field name="image" widget="image"/>
+                                <field name="sequence"/>
+                            </group>
+                        </form>
+                    </field>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 3. Clean Kanban View -->
+    <record id="view_product_360_kanban_standalone" model="ir.ui.view">
+        <field name="name">product.360.kanban.standalone</field>
+        <field name="model">product.template</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="product_360_ids_json"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="p-2">
+                            <strong class="o_kanban_record_title"><field name="name"/></strong>
+                            <div class="mt-2">
+                                <field name="product_360_ids_json" widget="product_360_kanban_button"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- 4. Link Action -->
+    <record id="action_product_360_app_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_product_360_kanban_standalone"/>
+        <field name="act_window_id" ref="action_product_360_app"/>
+    </record>
+
+    <record id="action_product_360_app_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_product_360_form_standalone"/>
+        <field name="act_window_id" ref="action_product_360_app"/>
+    </record>
+
+    <!-- 5. Menus -->
+    <menuitem id="menu_product_360_root" 
+              name="Product 360" 
+              web_icon="product_360_view,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_product_360_main" 
+              name="Products" 
+              parent="menu_product_360_root" 
+              action="action_product_360_app" 
+              sequence="1"/>
+
+</odoo>

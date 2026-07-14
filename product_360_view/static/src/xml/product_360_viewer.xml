@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="product_360_view.Viewer">
+        <div class="o_product_360_viewer_container" 
+             t-on-mousedown="onMouseDown"
+             t-on-touchstart="onTouchStart"
+             t-ref="container">
+             
+            <!-- Loading Spinner -->
+            <t t-if="state.isLoading">
+                <div class="o_360_loader">
+                    <i class="fa fa-circle-o-notch fa-spin"/> Loading 360...
+                </div>
+            </t>
+
+            <!-- The Image -->
+            <img t-att-src="currentImageSrc" 
+                 class="img img-fluid o_360_display_image" 
+                 draggable="false"
+                 t-att-style="state.isLoading ? 'opacity:0' : 'opacity:1'"/>
+            
+            <!-- Controls Overlay -->
+            <t t-if="!state.isLoading and props.imageIds.length > 0">
+                <div class="o_360_controls">
+                    <i class="fa fa-arrows-h"/> Drag to Rotate
+                </div>
+            </t>
+            
+            <!-- Empty State -->
+            <t t-if="!state.isLoading and props.imageIds.length == 0">
+                <div class="text-muted">No Images Uploaded</div>
+            </t>
+        </div>
+    </t>
+</templates>
