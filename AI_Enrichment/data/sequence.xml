@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<openerp>
+<data noupdate="1">
+<record id="sync_configuration_queue" model="ir.sequence">
+<field name="name">SYNC code</field>
+<field name="code">sync.queue.code</field>
+<field name="prefix">SYNC</field>
+<field name="padding">5</field>
+<field name="company_id">1</field>
+</record>
+</data>
+</openerp>
+</odoo>

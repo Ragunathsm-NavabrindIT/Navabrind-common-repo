@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View (Unchanged but included for completeness) -->
+    <record id="view_ai_enrichment_queue_log_tree" model="ir.ui.view">
+        <field name="name">ai.enrichment.queue.log.tree</field>
+        <field name="model">ai.enrichment.queue.log</field>
+        <field name="arch" type="xml">
+            <list string="Queue Logs" create="false" edit="false" delete="true">
+                <field name="reference" string="Sync ID"/>
+                <field name="name" string="Run ID"/>
+                <field name="create_date_formatted" string="Sync Created Date"/>
+                <field name="type" string="Type"/>
+                <!-- <field name="generation_success_count" string="Gen. Success" invisible="1"/>
+                <field name="update_success_count" string="Update Success" invisible="1"/> -->
+                <field name="state" widget="badge" decoration-info="state == 'queued'" decoration-warning="state == 'processing'" decoration-success="state == 'done'" decoration-danger="state == 'failed'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View (FIXED) -->
+    <record id="view_ai_enrichment_queue_log_form" model="ir.ui.view">
+        <field name="name">ai.enrichment.queue.log.form</field>
+        <field name="model">ai.enrichment.queue.log</field>
+        <field name="arch" type="xml">
+            <form string="Queue Log" create="false" edit="false" delete="true">
+                <header>
+                    <button name="action_refresh_status" type="object" string="Refresh Status" class="btn-primary" invisible="state in ('done', 'failed')"/>
+                    <!-- FIX: Restored the statusbar widget for a professional look -->
+                    <field name="state" widget="statusbar" statusbar_visible="queued,processing,done,failed"/>
+                </header>
+                <sheet>
+                    <!-- <h1><field name="name" readonly="1"/></h1> -->
+                    <h1><field name="reference" readonly="1"/></h1>
+
+                    <group>
+                        <group string="Sync Configuration">
+                            <field name="name"/>
+                            <field name="config_id" invisible="1"/>
+                            <field name="prompt_type"/>
+                            <field name="update_field"/>
+                        </group>
+                        <group string="Sync Details">
+                             <field name="type"/>
+                             <field name="create_date"/>
+                             <field name="product_count"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        
+                        <page string="Products" name="products">
+                            <field name="product_ids" readonly="1">
+                                <list>
+                                    <field name="default_code"/>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Results Summary" name="results">
+                            <group>
+                                <group>
+                                    <field name="generation_success_count" />
+                                    <field name="generation_failed_count" />
+                                </group>
+                                <group>
+                                    <field name="update_success_count"/>
+                                    <field name="update_failed_count"/>
+                                </group>
+                            </group>
+                            
+                            <field name="error_message" invisible="state not in 'failed'" style="color:red;"/>
+                            <field name="results_json" widget="ace" options="{'editor_mode': 'json'}" readonly="1" invisible="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action (Unchanged) -->
+    <record id="action_ai_enrichment_queue_log" model="ir.actions.act_window">
+        <field name="name">Queue Logs</field>
+        <field name="res_model">ai.enrichment.queue.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No enrichment jobs have been queued yet.
+            </p>
+        </field>
+    </record>
+</odoo>

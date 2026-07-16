@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ai_enrichment_root" name="AI Enrichment" sequence="99" web_icon="AI_Enrichment,static/description/icon.png"/>
+
+    <menuitem id="menu_ai_enrichment_config" name="Configuration" parent="menu_ai_enrichment_root" sequence="20"/>
+
+    <menuitem id="menu_ai_enrichment_config_ai_configuration" name="AI Configuration" action="action_ai_enrichment_config" parent="menu_ai_enrichment_config" sequence="10"/>
+
+    <menuitem
+        id="menu_ai_enrichment_config_queue_logs"
+        name="Queue Logs"
+        action="action_ai_enrichment_queue_log"
+        parent="menu_ai_enrichment_config"
+        sequence="1"/>
+   
+    <menuitem id="menu_ai_custom_parent_dashboard"
+              name="Dashboard"
+              parent="menu_ai_enrichment_root"
+              action="action_ai_enrichment_queue_log"
+              sequence="10"/>
+
+    <menuitem
+        id="menu_ai_enrichment_config_sync_configurations"
+        name="Sync Configurations"
+        action="action_trigger_sync_config"
+        parent="menu_ai_enrichment_config"
+        sequence="1"/>
+ <!-- Menu Item -->
+    <menuitem
+            id="menu_ai_enrichment_config_prompt_types"
+            name="Prompt Types"
+            parent="menu_ai_enrichment_config"
+            action="action_prompt_type"
+            sequence="40"/>
+</odoo>
