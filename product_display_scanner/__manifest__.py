@@ -10,7 +10,7 @@
     'author': 'Navabrind IT Solutions',
     'website': 'https://navabrindsol.com',
     'category': 'Inventory',
-    'depends': [
+    'depends': [ 
         'web',
         'product',
         'stock'
